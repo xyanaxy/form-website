@@ -6,9 +6,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $subject = htmlspecialchars($_POST['subject']);
     $message = htmlspecialchars($_POST['message']);
     $address = htmlspecialchars($_POST['address']);
-    $company = htmlspecialchars($_POST['company']);
 
-    $to = "hello@xyana.xyz"; // Replace with your email address
+    $to = "hello@xyana.xyz";
     $email_subject = "New Form Submission: $subject";
     $email_body = "You have received a new message.\n\n".
                   "Name: $name\n".
@@ -16,18 +15,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                   "Phone: $phone\n".
                   "Subject: $subject\n".
                   "Message: $message\n".
-                  "Address: $address\n".
-                  "Company: $company\n";
+                  "Address: $address\n";
 
     $headers = "From: $email\r\n";
     $headers .= "Reply-To: $email\r\n";
 
     if (mail($to, $email_subject, $email_body, $headers)) {
-        echo "Message sent successfully!";
+        echo "<h1>Message sent successfully! <a href='form-page.html'>Go back</a></h1>";
     } else {
-        echo "Failed to send the message.";
+        echo "<h1>Failed to send the message. <a href='form-page.html'>Try again</a></h1>";
     }
 } else {
-    echo "Invalid request method.";
+    header("Location: form-page.html");
+    exit();
 }
 ?>
